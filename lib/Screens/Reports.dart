@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
@@ -200,7 +202,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        // TODO Drop 1
+                                        // TODO Drop 1 TP/PP Drop Down
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -218,14 +220,15 @@ class _ReportsState extends State<Reports> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            controller.setTPDropValue(val);
-
+                                            controller.setTPDropDownValue(val);
+                                            print("Drop down 1 " +
+                                                val.toString());
                                             controller.setDrop2List(val!);
                                             getData();
 
                                             // controller.addDataList();
                                           },
-                                          items: controller.TPDrop.map<
+                                          items: controller.TPDropDownList.map<
                                                   DropdownMenuItem<String>>(
                                               (String value) {
                                             return DropdownMenuItem<String>(
@@ -257,7 +260,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
-                                        // TODO Drop 2
+                                        // TODO Drop 2 Unit Drop Down
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -274,14 +277,16 @@ class _ReportsState extends State<Reports> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            controller.setUnitDropValue(val);
+                                            print("Unit Drop Down: $val!");
+                                            controller
+                                                .setUnitDropDownValue(val);
                                             controller.setUnitsDropList(val!);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.UnitDrop.map<
-                                                  DropdownMenuItem<String>>(
-                                              (String value) {
+                                          items: controller.UnitDropDownList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
@@ -313,11 +318,12 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        // TODO Drop 3
+                                        // TODO Drop 3 Consumption Drop down
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
-                                          value: controller.BPDropValue,
+                                          value:
+                                              controller.ConsumptionDropValue,
                                           //  controller.BPDropValue ==
                                           //         "PP1 ,PP2 ,PP3\r\n"
                                           //     ? "PP1 ,PP2 ,PP3"
@@ -337,13 +343,14 @@ class _ReportsState extends State<Reports> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            controller.setBPDropValue(val);
+                                            controller
+                                                .setConsumptionDropValue(val);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.BPDrop.map<
-                                                  DropdownMenuItem<String>>(
-                                              (String value) {
+                                          items: controller.ConsumptionDropList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
@@ -388,7 +395,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        // TODO Drop 4
+                                        // TODO Drop 4 Year Drop Down
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -406,15 +413,16 @@ class _ReportsState extends State<Reports> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            print('pahle');
+                                            log('Year dropdown selected value: $val');
 
-                                            controller.setBPDropValue1(val);
+                                            controller
+                                                .setYearDropDownValue(val);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.BPDrop1.map<
-                                                  DropdownMenuItem<String>>(
-                                              (String value) {
+                                          items: controller.yearDropList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
@@ -443,7 +451,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
-                                        // TODO Drop 5
+                                        // TODO Drop 5 Month Drop Down
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -460,13 +468,15 @@ class _ReportsState extends State<Reports> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            controller.setBPDropValue2(val);
+                                            log('month dropdown selected value: $val');
+                                            controller
+                                                .setMonthDropDownValue(val);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.BPDrop2.map<
-                                                  DropdownMenuItem<String>>(
-                                              (String value) {
+                                          items: controller.monthDropList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(

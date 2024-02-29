@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,6 +7,7 @@ import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
+import 'package:epcc/controllers/dailyUnitController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:epcc/controllers/unitsController.dart';
@@ -18,7 +21,7 @@ class UnitsPage extends GetView<UnitsController> {
   final _subController = Get.find<SubUnitsController>();
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   final _profileController = Get.find<ProfileController>();
-
+  final _dailyUnitController = Get.find<DailyUnitsController>();
   @override
   Widget build(BuildContext context) {
     controller.addChartsDetails(
@@ -147,7 +150,7 @@ class UnitsPage extends GetView<UnitsController> {
             duration: Duration(milliseconds: 400),
             child: Column(children: [
               Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Container(
                     color: epccBlue500,
                     child: Column(
@@ -165,6 +168,10 @@ class UnitsPage extends GetView<UnitsController> {
                             controller.setUnitDropValue1("Year");
                             controller.setUnitDropValue2("Month");
                             controller.setUnitDropValue3("Day");
+                            controller.setTotalUnit1(0.0);
+                            controller.setTotalUnit2(0.0);
+                            controller.setTotalUnit3(0.0);
+                            controller.setTotalUnit4(0.0);
                             _subController.unitOneValue.clear();
                             _subController.unitTwoValue.clear();
                           },
@@ -246,8 +253,7 @@ class UnitsPage extends GetView<UnitsController> {
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: DropdownButton<String>(
-                                      menuMaxHeight:
-                                          MediaQuery.of(context).size.width,
+                                      menuMaxHeight: MediaQuery.of(context).size.width,
                                       value: controller.UnitDropValue1.value,
                                       disabledHint: Text(""),
                                       icon: const Icon(
@@ -262,7 +268,9 @@ class UnitsPage extends GetView<UnitsController> {
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
                                       onChanged: (val) {
+                                        print("$val");
                                         controller.setUnitDropValue1(val);
+                                        controller.totalunit1;
                                         controller.addChartsDetails(
                                             controller.unitOneDetails,
                                             controller.unitTwoDetails,
@@ -301,8 +309,7 @@ class UnitsPage extends GetView<UnitsController> {
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     child: DropdownButton<String>(
-                                      menuMaxHeight:
-                                          MediaQuery.of(context).size.width,
+                                      menuMaxHeight: MediaQuery.of(context).size.width,
                                       value: controller.UnitDropValue2.value,
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
@@ -355,8 +362,7 @@ class UnitsPage extends GetView<UnitsController> {
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: DropdownButton<String>(
-                                      menuMaxHeight:
-                                          MediaQuery.of(context).size.width,
+                                      menuMaxHeight: MediaQuery.of(context).size.width,
                                       value: controller.UnitDropValue3.value,
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
@@ -424,7 +430,7 @@ class UnitsPage extends GetView<UnitsController> {
                                                   textStyle: TextStyle(
                                                       color: Colors.black,
                                                       fontFamily: 'Roboto',
-                                                      fontSize: 14,
+                                                      fontSize: 10.5,
                                                       fontStyle:
                                                           FontStyle.normal,
                                                       fontWeight:
@@ -591,7 +597,7 @@ class UnitsPage extends GetView<UnitsController> {
                                               ColumnSeries<ChartData1, String>(
                                                   pointColorMapper:
                                                       (ChartData1 color, _) =>
-                                                          ddbcolor,
+                                                          Color(0xffFFBA44),
 
                                                   // Hiding the legend item for this series
                                                   dataLabelSettings:
@@ -618,7 +624,7 @@ class UnitsPage extends GetView<UnitsController> {
                                               ColumnSeries<ChartData1, String>(
                                                   pointColorMapper:
                                                       (ChartData1 color, _) =>
-                                                          ddbcolor,
+                                                          Colors.red,
                                                   // Hiding the legend item for this series
                                                   dataLabelSettings:
                                                       DataLabelSettings(
@@ -655,12 +661,15 @@ class UnitsPage extends GetView<UnitsController> {
                     children: [
                       getTiles(controller.colors[0], controller.buttonText[0],
                           "assets/images/unit1.png", () {
-                        _subController.setUnitDetials(controller.unitOne);
+                        //unit 1
+                        _subController.setUnitDetials(
+                            controller.unitOne); //unit one details
 
-                        _subController.setButtonIndex(2);
-                        _subController.setUnitButtonColor(
+                        _subController.setButtonIndex(2); // button index
+                        _subController.setUnitButtonColor(//button color
                             [Colors.red, Color(0xffFFBA44)]);
                         _subController.SetButtonText([
+                          //button text
                           controller.centerName[0],
                           controller.centerName[1]
                         ]);
@@ -676,12 +685,17 @@ class UnitsPage extends GetView<UnitsController> {
                         _subController.unitOneValue.clear();
                         _subController.unitTwoValue.clear();
                         BottomNavigation.changeProfileWidget(SubUnits());
-                      }, controller.totalunit1, controller.U1),
+                      },
+                          controller.dailyTotalUnit1 == 0.0
+                              ? _dailyUnitController.totalunit1
+                              : controller.dailyTotalUnit1,
+                          controller.U1), //controller.totalunit1
                       getTiles(controller.colors[1], controller.buttonText[1],
                           "assets/images/unit2.png", () {
                         _subController.setUnitDetials(controller.unitTwo);
                         _subController.setButtonIndex(2);
-                        _subController.setUnitButtonColor([ddbcolor, ddbcolor]);
+                        _subController.setUnitButtonColor(//button color
+                            [Colors.red, Color(0xffFFBA44)]);
                         _subController.SetButtonText([
                           controller.centerName[2],
                           controller.centerName[3]
@@ -698,19 +712,25 @@ class UnitsPage extends GetView<UnitsController> {
                         _subController.unitOneValue.clear();
                         _subController.unitTwoValue.clear();
                         BottomNavigation.changeProfileWidget(SubUnits());
-                      }, controller.totalunit2, controller.U2),
+                      },
+                          controller.dailyTotalUnit2 == 0.0
+                              ? _dailyUnitController.totalunit2
+                              : controller.dailyTotalUnit2,
+                          controller.U2),
                       controller.buttonIndex == 4
                           ? Column(
                               children: [
                                 getTiles(
-                                    controller.colors[2],
-                                    controller.buttonText[2],
+                                    controller.colors[2], //button color
+                                    controller.buttonText[2], //button text
                                     "assets/images/unit1.png", () {
+                                  //on Tap
                                   _subController
                                       .setUnitDetials(controller.unitThree);
                                   _subController.setButtonIndex(2);
                                   _subController
-                                      .setUnitButtonColor([ddbcolor, ddbcolor]);
+                                      .setUnitButtonColor(//button color
+                                          [Colors.red, Color(0xffFFBA44)]);
                                   _subController.SetButtonText([
                                     controller.centerName[4],
                                     controller.centerName[5]
@@ -730,7 +750,16 @@ class UnitsPage extends GetView<UnitsController> {
 
                                   BottomNavigation.changeProfileWidget(
                                       SubUnits());
-                                }, controller.totalunit3, controller.U3),
+                                },
+                                    controller.dailyTotalUnit3 == 0.0
+                                        ? _dailyUnitController.totalunit3
+                                        : controller
+                                            .dailyTotalUnit3, //total value of the unit
+
+                                    controller
+                                        .U3 //listData to reduce to min/max
+
+                                    ),
                                 getTiles(
                                     controller.colors[3],
                                     controller.buttonText[3],
@@ -742,7 +771,8 @@ class UnitsPage extends GetView<UnitsController> {
                                       ? _subController.setButtonIndex(1)
                                       : _subController.setButtonIndex(2);
                                   _subController
-                                      .setUnitButtonColor([ddbcolor, ddbcolor]);
+                                      .setUnitButtonColor(//button color
+                                          [Colors.red, Color(0xffFFBA44)]);
                                   controller.centerName.length == 7
                                       ? _subController.SetButtonText(
                                           [controller.centerName[6]])
@@ -764,7 +794,11 @@ class UnitsPage extends GetView<UnitsController> {
                                   _subController.unitTwoValue.clear();
                                   BottomNavigation.changeProfileWidget(
                                       SubUnits());
-                                }, controller.totalunit4, controller.U4)
+                                },
+                                    controller.dailyTotalUnit4 == 0.0
+                                        ? _dailyUnitController.totalunit4
+                                        : controller.dailyTotalUnit4,
+                                    controller.U4)
                               ],
                             )
                           : Container(),
@@ -784,7 +818,7 @@ class UnitsPage extends GetView<UnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 70,
+          height: 73,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -821,7 +855,8 @@ class UnitsPage extends GetView<UnitsController> {
                               ],
                             ),
                             Text(
-                                "Total: ${listData.reduce((value, element) => value + element)}",
+                                "Total: $totalvalue" +
+                                    " kWh", //{listData.reduce((value, element) => value + element)}
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16)),
                             Icon(
@@ -847,12 +882,10 @@ class UnitsPage extends GetView<UnitsController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                                "Min: ${listData.reduce((value, element) => value < element ? value : element)}",
+                            Text("Min: ${listData.reduce(min)}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16)),
-                            Text(
-                                "Max: ${listData.reduce((value, element) => value > element ? value : element)}",
+                            Text("Max: ${listData.reduce(max)}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16)),
                           ],

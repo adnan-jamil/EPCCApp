@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,8 +13,8 @@ import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SubUnits extends GetView<SubUnitsController> {
   final _controller = Get.find<BackProcessController>();
@@ -255,11 +257,13 @@ class SubUnits extends GetView<SubUnitsController> {
                                     style: const TextStyle(
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
+                                      print('selected value: $val');
                                       controller.setSubDropValue1(val);
                                       controller.addChartDetails(
-                                          controller.unitDetails,
-                                          controller.button,
-                                          controller.buttonText);
+                                        controller.unitDetails,
+                                        controller.button,
+                                        controller.buttonText,
+                                      );
                                     },
                                     items: controller.SubDrop1.map<
                                             DropdownMenuItem<String>>(
@@ -483,7 +487,12 @@ class SubUnits extends GetView<SubUnitsController> {
                     _controller.setBPDropValue3("Day");
                     BottomNavigation.changeProfileWidget(
                         BackProcessUnit(unitOnevalue: controller.unitOneValue));
-                  }, controller.u1),
+                  }, controller.u1,
+                      dailyConsumptionValue:
+                          controller.dropDownConsumptionValueUnit1 == 0.0
+                              ? controller.unit1DailyConsumptionValue.toString()
+                              : controller.dropDownConsumptionValueUnit1
+                                  .toString()),
                   controller.button == 2
                       ? getTiles(controller.colors[1], controller.buttonText[1],
                           "assets/images/sw.png", () {
@@ -500,7 +509,13 @@ class SubUnits extends GetView<SubUnitsController> {
                           _controller.setBPDropValue3("Day");
                           BottomNavigation.changeProfileWidget(BackProcessUnit(
                               unitOnevalue: controller.unitTwoValue));
-                        }, controller.u2)
+                        }, controller.u2,
+                          dailyConsumptionValue:
+                              controller.dropDownConsumptionValueUnit2 == 0.0
+                                  ? controller.unit2DailyConsumptionValue
+                                      .toString()
+                                  : controller.dropDownConsumptionValueUnit2
+                                      .toString())
                       : Container()
                 ],
               ),
@@ -511,9 +526,10 @@ class SubUnits extends GetView<SubUnitsController> {
     );
   }
 
-  getTiles(Color color, String val, textImage, VoidCallback onTap,
-      List<double> list) {
-    print(val);
+  getTiles(Color color, String consumptionCenterName, textImage,
+      VoidCallback onTap, List<double> list,
+      {String? dailyConsumptionValue}) {
+    print(consumptionCenterName);
 
     return GestureDetector(
       onTap: onTap,
@@ -522,7 +538,7 @@ class SubUnits extends GetView<SubUnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 70,
+          // height: 70,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -533,13 +549,15 @@ class SubUnits extends GetView<SubUnitsController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                      flex: 2,
-                      child: Container(
-                          width: 50,
-                          height: 50,
-                          child: Image.asset(textImage))),
+                    flex: 2,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(textImage),
+                    ),
+                  ),
                   Expanded(
-                    flex: 9,
+                    flex: 10,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -547,19 +565,26 @@ class SubUnits extends GetView<SubUnitsController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  val != "PP1 ,PP2 ,PP3\r\n"
-                                      ? val
-                                          .replaceAll("/", " / ")
-                                          .replaceAll("\r\n", "")
-                                          .capitalize
-                                          .toString()
+                            Expanded(
+                              child: SizedBox(
+                                child:
+                                    // Row(
+                                    //   children: [
+                                    Text(
+                                  consumptionCenterName != "PP1 ,PP2 ,PP3\r\n"
+                                      ? consumptionCenterName
+                                              .replaceAll("/", " / ")
+                                              .replaceAll("\r\n", "")
+                                              .capitalize
+                                              .toString() +
+                                          "$dailyConsumptionValue" +
+                                          " kWh"
                                       : "PP1 ,PP2 ,PP3",
-                                  style: TextStyle(color: white, fontSize: 18),
+                                  style: TextStyle(color: white, fontSize: 15),
                                 ),
-                              ],
+                                //   ],
+                                // ),
+                              ),
                             ),
                             Icon(
                               Icons.arrow_forward_ios,
@@ -582,21 +607,17 @@ class SubUnits extends GetView<SubUnitsController> {
                           height: 5,
                         ),
                         list.isEmpty
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // Text("Total:32434Kwh",
-                                  //     style: TextStyle(
-                                  //         color: Colors.white, fontSize: 16)),
-                                  Text("Min:32434",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16)),
-                                  Text("Max:32434",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16)),
-                                ],
-                              )
+                            ? SizedBox.shrink()
+                            // Row(
+                            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //         children: [
+                            //           // Text("Total:32434Kwh",
+                            //           //     style: TextStyle(
+                            //           //         color: Colors.white, fontSize: 16)),
+                            //           Text("Min:32434", style: TextStyle(color: Colors.white, fontSize: 16)),
+                            //           Text("Max:32434", style: TextStyle(color: Colors.white, fontSize: 16)),
+                            //         ],
+                            //       )
                             : Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -606,11 +627,11 @@ class SubUnits extends GetView<SubUnitsController> {
                                   //     style: TextStyle(
                                   //         color: Colors.white, fontSize: 16)),
                                   Text(
-                                      "Min: ${list.reduce((value, element) => value < element ? value : element)}",
+                                      "Min: ${list.reduce(min)}", //(value, element) => value < element ? value : element
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 16)),
                                   Text(
-                                      "Max: ${list.reduce((value, element) => value > element ? value : element)}",
+                                      "Max: ${list.reduce(max)}", //(value, element) => value > element ? value : element)
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 16)),
                                 ],

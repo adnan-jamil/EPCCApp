@@ -2,6 +2,7 @@ import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class SubUnitsController extends GetxController {
   var _subdropdown1 = "Year".obs;
@@ -35,6 +36,21 @@ class SubUnitsController extends GetxController {
     _unitTwovalue.add(val);
   }
 
+  var _unit1DailyConsumptionValue = 0.0.obs;
+
+  double get unit1DailyConsumptionValue => _unit1DailyConsumptionValue.value;
+
+  var _unit2DailyConsumptionValue = 0.0.obs;
+  double get unit2DailyConsumptionValue => _unit2DailyConsumptionValue.value;
+
+  var _dropDownConsumptionValueUnit1 = 0.0.obs;
+  double get dropDownConsumptionValueUnit1 =>
+      _dropDownConsumptionValueUnit1.value;
+
+  var _dropDownConsumptionValueUnit2 = 0.0.obs;
+  double get dropDownConsumptionValueUnit2 =>
+      _dropDownConsumptionValueUnit2.value;
+
   var _u1List = <double>[].obs;
   var _u2List = <double>[].obs;
   List<double> get u1 => _u1List;
@@ -59,6 +75,15 @@ class SubUnitsController extends GetxController {
     for (var i = 0; i < unitDetails.length; i++) {
       if (unitDetails[i].centerName == list[0]) {
         if (unitDetails[i].consumptionValue == 0) {}
+        print(
+            "Sub Center Name ${unitDetails[i].centerName} | Consumption Date: ${unitDetails[i].consumptionDate}  | Consumption Value: ${unitDetails[i].consumptionValue} ");
+
+        if (unitDetails[0].consumptionDate == unitDetails[i].consumptionDate) {
+          _unit1DailyConsumptionValue.value = unitDetails[i].consumptionValue;
+          print(
+              "Latest Value: ${unitDetails[0].consumptionValue} Consumption Date: ${unitDetails[0].consumptionDate}");
+        }
+
         setU1(unitDetails[i].consumptionValue);
         setUnitOneValue(ConsumptionValue(
             Date: unitDetails[i].consumptionDate,
@@ -67,7 +92,18 @@ class SubUnitsController extends GetxController {
       if (index == 2) {
         if (unitDetails[i].centerName == list[1]) {
           if (unitDetails[i].consumptionValue == 0) {}
+
+          print(
+              "Sub Center Name ${unitDetails[i].centerName} | Consumption Date: ${unitDetails[i].consumptionDate}  | Consumption Value: ${unitDetails[i].consumptionValue} ");
+
+          if (unitDetails[0].consumptionDate ==
+              unitDetails[i].consumptionDate) {
+            _unit2DailyConsumptionValue.value = unitDetails[i].consumptionValue;
+            print(
+                "Latest Value: ${unitDetails[0].consumptionValue} Consumption Date: ${unitDetails[0].consumptionDate}");
+          }
           setU2(unitDetails[i].consumptionValue);
+
           setUnitTwoValue(ConsumptionValue(
               Date: unitDetails[i].consumptionDate,
               Consumption: unitDetails[i].consumptionValue));
@@ -78,6 +114,29 @@ class SubUnitsController extends GetxController {
     if (_subdropdown1.value == "Year" &&
         _subdropdown2.value == "Month" &&
         _subdropdown3.value == "Day") {
+      _dropDownConsumptionValueUnit2.value = 0.0;
+      _dropDownConsumptionValueUnit1.value = 0.0;
+      for (var i = 0; i < 8; i++) {
+        if (unitDetails[i].centerName == list[0]) {
+          setChartOne(ChartDataSub(
+              x: unitDetails[i].consumptionDate,
+              y: unitDetails[i].consumptionValue));
+        }
+        if (index == 2) {
+          if (unitDetails[i].centerName == list[1]) {
+            setChartTwo(ChartDataSub(
+                x: unitDetails[i].consumptionDate,
+                y: unitDetails[i].consumptionValue));
+          }
+        }
+      }
+    }
+    //this query run when _subdropdown1 == current year && _subdropdown2 == Month && _subdropdown3 == Day
+    else if (_subdropdown1.value == DateFormat('yyyy').format(DateTime.now()) &&
+        _subdropdown2.value == "Month" &&
+        _subdropdown3.value == "Day") {
+      _dropDownConsumptionValueUnit2.value = 0.0;
+      _dropDownConsumptionValueUnit1.value = 0.0;
       for (var i = 0; i < 8; i++) {
         if (unitDetails[i].centerName == list[0]) {
           setChartOne(ChartDataSub(
@@ -104,6 +163,8 @@ class SubUnitsController extends GetxController {
       for (var i = 0; i < unitDetails.length; i++) {
         if (unitDetails[i].centerName == list[0]) {
           if (unitDetails[i].consumptionDate == date) {
+            _dropDownConsumptionValueUnit1.value =
+                unitDetails[i].consumptionValue;
             setChartOne(ChartDataSub(
                 x: unitDetails[i].consumptionDate,
                 y: unitDetails[i].consumptionValue));
@@ -112,6 +173,9 @@ class SubUnitsController extends GetxController {
         if (index == 2) {
           if (unitDetails[i].centerName == list[1]) {
             if (unitDetails[i].consumptionDate == date) {
+              _dropDownConsumptionValueUnit2.value =
+                  unitDetails[i].consumptionValue;
+
               setChartTwo(ChartDataSub(
                   x: unitDetails[i].consumptionDate,
                   y: unitDetails[i].consumptionValue));
@@ -120,6 +184,8 @@ class SubUnitsController extends GetxController {
         }
       }
       if (chartOne.isEmpty && chartTwo.isEmpty) {
+        _dropDownConsumptionValueUnit2.value = 0.0;
+        _dropDownConsumptionValueUnit1.value = 0.0;
         Get.rawSnackbar(
             backgroundColor: epccBlue500,
             icon: Icon(
@@ -133,6 +199,8 @@ class SubUnitsController extends GetxController {
     } else if (_subdropdown1.value == "Year" ||
         _subdropdown2.value == "Month" ||
         _subdropdown3.value == "Day") {
+      _dropDownConsumptionValueUnit2.value = 0.0;
+      _dropDownConsumptionValueUnit1.value = 0.0;
       Get.rawSnackbar(
           backgroundColor: epccBlue500,
           icon: Icon(
@@ -209,6 +277,10 @@ class SubUnitsController extends GetxController {
 
   List<String> _subDropList1 = [
     "Year",
+    "2025",
+    "2024",
+    "2023",
+    "2022",
     "2021",
     "2020",
     "2019",
