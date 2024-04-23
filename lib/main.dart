@@ -1,5 +1,4 @@
 import 'package:epcc/Authentication/ApiService.dart';
-
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -12,10 +11,9 @@ Future main() async {
   ApiService().getResponse();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SystemChrome.setEnabledSystemUIOverlays(
-      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   runApp(GetMaterialApp(
     initialBinding: HomePageBindings(),
     theme: ThemeData(
@@ -24,6 +22,6 @@ Future main() async {
     ),
     getPages: AppPages.routes,
     initialRoute: AppPages.SPLASHING,
-    debugShowCheckedModeBanner: false,
+    debugShowCheckedModeBanner: false, 
   ));
 }

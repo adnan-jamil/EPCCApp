@@ -25,13 +25,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
- def keystoreProperties = new Properties()
-   def keystorePropertiesFile = rootProject.file('key.properties')
-   if (keystorePropertiesFile.exists()) {
-       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-   }
+def keystoreProperties = new Properties()
+  def keystorePropertiesFile = rootProject.file('key.properties')
+  if (keystorePropertiesFile.exists()) {
+      keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+  }
 android {
-    compileSdkVersion 30
+
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -39,9 +39,16 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+
         applicationId "com.example.epcc"
         minSdkVersion 16
         targetSdkVersion 30
+
+        applicationId "com.virtuenetz.epcc"
+        minSdkVersion 22//16
+        targetSdkVersion 34 //33
+        compileSdkVersion 34
+
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -67,7 +74,18 @@ flutter {
     source '../..'
 }
 
+configurations.all {
+    exclude group: 'com.google.android.gms', module: 'play-services-safetynet'
+}
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
+    // implementation 'com.google.android.recaptcha:recaptcha:18.4.0'
+    //added below lines for google play console safetynet issue
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+    // implementation 'com.google.firebase:firebase-core'
+    // implementation 'com.google.firebase:firebase-auth'
+    // implementation('com.google.firebase:firebase-auth') {
+    //     exclude module: "play-services-safetynet"
+    // }
 }
