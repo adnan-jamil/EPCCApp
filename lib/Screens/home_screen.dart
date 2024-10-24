@@ -239,7 +239,6 @@ class HomeScreen extends GetView<HomeController> {
                                           ChartData('PP', controller.pp,
                                               Color(0xffFFA640))
                                         ],
-                                        enableSmartLabels: true,
                                         dataLabelMapper: (ChartData data, _) =>
                                             data.x,
                                         xValueMapper: (ChartData data, _) =>

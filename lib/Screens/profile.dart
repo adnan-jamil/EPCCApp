@@ -190,8 +190,8 @@ class _ProfileState extends State<Profile> {
                                     style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 10.0),
-                                        shape: StadiumBorder(),
-                                        primary: epccBlue500),
+                                        backgroundColor: epccBlue500,
+                                        shape: StadiumBorder()),
                                     child: Text(
                                       "Change",
                                       style: TextStyle(
@@ -219,8 +219,8 @@ class _ProfileState extends State<Profile> {
                                     style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 10.0),
-                                        shape: StadiumBorder(),
-                                        primary: Color(0xff00B8AC)),
+                                        backgroundColor: Color(0xff00B8AC),
+                                        shape: StadiumBorder()),
                                     child: Text(
                                       "Change",
                                       style: TextStyle(
@@ -254,8 +254,8 @@ class _ProfileState extends State<Profile> {
                                     style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 10.0),
-                                        shape: StadiumBorder(),
-                                        primary: Colors.red),
+                                        backgroundColor: Colors.red,
+                                        shape: StadiumBorder()),
                                     child: Text(
                                       "Signout",
                                       style: TextStyle(
@@ -290,8 +290,9 @@ class _ProfileState extends State<Profile> {
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 30.0,
                                                       vertical: 10.0),
-                                                  shape: StadiumBorder(),
-                                                  primary: Colors.orange
+                                                  backgroundColor:
+                                                      Colors.orange,
+                                                  shape: StadiumBorder()
                                                   // primary: Color(0xffFFBA44)
                                                   ),
                                               child: Text(
@@ -332,8 +333,8 @@ class _ProfileState extends State<Profile> {
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 28.0,
                                                       vertical: 10.0),
-                                                  shape: StadiumBorder(),
-                                                  primary: epccBlue),
+                                                  backgroundColor: epccBlue,
+                                                  shape: StadiumBorder()),
                                               child: Text(
                                                 "View",
                                                 style: TextStyle(

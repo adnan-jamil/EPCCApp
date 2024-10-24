@@ -347,8 +347,8 @@ class LoginScreen extends GetView<LoginController> {
                                   },
                                   child: Text("Login"),
                                   style: ElevatedButton.styleFrom(
-                                      primary: epccBlue500,
-                                      onPrimary: white,
+                                      foregroundColor: white,
+                                      backgroundColor: epccBlue500,
                                       padding: EdgeInsets.symmetric(
                                           vertical: 8, horizontal: 28),
                                       textStyle: TextStyle(

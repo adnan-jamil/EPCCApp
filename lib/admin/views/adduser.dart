@@ -130,8 +130,8 @@ class _AddUserState extends State<AddUser> {
                       style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 10.0),
-                          shape: StadiumBorder(),
-                          primary: epccBlue500),
+                          backgroundColor: epccBlue500,
+                          shape: StadiumBorder()),
                       onPressed: () async {
                         if (controller.formState.currentState!.validate()) {
                           controller.formState.currentState!.save();
