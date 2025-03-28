@@ -4,7 +4,6 @@ import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/controllers/unitsController.dart';
-import 'package:epcc/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,10 +16,11 @@ class HomeController extends GetxController
     Color(0xffFF4040),
     Color(0xffFFA640)
   ];
-var response = true.obs;
+  var response = true.obs;
   setResponse(bool val) {
     response.value = val;
   }
+
   double _totalKWh = 0;
   double get totalKwh => _totalKWh;
   setTotal(double t1, double t2, double t3, double t4, double pp) {
@@ -88,7 +88,7 @@ var response = true.obs;
     _PP.add(value);
   }
 
-// TODO Unit Calculation
+// todo Unit Calculation
 
   List<UNITDATAMODEL> _TP1UNIT1DATA = [];
   List<UNITDATAMODEL> get TP1UNIT1DATA => _TP1UNIT1DATA;
@@ -271,7 +271,7 @@ var response = true.obs;
     super.onInit();
   }
 
-//TODO separate UNITs calculate
+//todo separate UNITs calculate
 
   var _TP1U1List = <double>[].obs;
   List<double> get TP1U1List => _TP1U1List;
@@ -357,7 +357,7 @@ var response = true.obs;
     _UTILITIESList.add(val);
   }
 
-  ///TODO TP list
+  ///todo TP list
   var _TP1List = <double>[].obs;
   List<double> get TP1List => _TP1List;
   setTP1List(double val) {
@@ -388,7 +388,7 @@ var response = true.obs;
     _PPList.add(val);
   }
 
-//TODO UnitS Sum
+// todo UnitS Sum
   double TP1_UNIT1_DATA_SUM = 0;
   double TP1_UNIT2_DATA_SUM = 0;
   double TP2_UNIT1_DATA_SUM = 0;
@@ -410,8 +410,8 @@ var response = true.obs;
   int e = 0;
 
   final reportData = Get.find<ReportController>();
-  apiCall() {
-    ApiService().fetchDetails().then((data) {
+  apiCall() async {
+    await ApiService().fetchDetails().then((data) {
       if (data[0] == "success") {
         for (var i = 0; i < data[1].length; i++) {
           Data _data = Data.fromJson(data[1][i]);
@@ -736,22 +736,23 @@ var response = true.obs;
             setPP(_data);
           }
         }
-      } else {
-        // Get.rawSnackbar(
-        //     duration: Duration(
-        //       seconds: 3,
-        //     ),
-        //     messageText: Text(
-        //       "Access Failed",
-        //       style: TextStyle(color: Colors.white),
-        //     ),
-        //     backgroundColor: Colors.black54,
-        //     icon: Icon(
-        //       Icons.error,
-        //       size: 18,
-        //       color: Colors.white,
-        //     ));
       }
+      // else {
+      //   Get.rawSnackbar(
+      //       duration: Duration(
+      //         seconds: 3,
+      //       ),
+      //       messageText: Text(
+      //         "Access Failed",
+      //         style: TextStyle(color: Colors.white),
+      //       ),
+      //       backgroundColor: Colors.black54,
+      //       icon: Icon(
+      //         Icons.error,
+      //         size: 18,
+      //         color: Colors.white,
+      //       ));
+      // }
 
       setTotal(t1, t2, t3, t4, pp);
 

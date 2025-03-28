@@ -1,13 +1,12 @@
-import 'package:connectivity_alert_widget/connectivity_alert_widget.dart';
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Screens/Reports.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/noInternet.dart';
 import 'package:epcc/Screens/profile.dart';
-import 'package:epcc/controllers/HomeController.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class BottomNavigation extends StatefulWidget {
   static int selectedIndex = 1;
@@ -26,13 +25,23 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Color specialWhite = Color(0xffececf6);
   Color lightGreen = Color(0xff9be1c4);
   Color specialRed = Color(0xFFFF506B);
+  bool _isConnected = true;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
-
     BottomNavigation.currentProfileScreen = HomeScreen();
     BottomNavigation.currentScreen = HomeScreen();
+
+    // Initialize connectivity check
+    _initConnectivity();
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> results) {
+      _updateConnectionStatus(results);
+    });
+
     BottomNavigation.backToHomePage = (Widget widget, int index, bool val) {
       setState(() {
         BottomNavigation.currentScreen = widget;
@@ -46,19 +55,39 @@ class _BottomNavigationState extends State<BottomNavigation> {
     };
   }
 
+  Future<void> _initConnectivity() async {
+    final List<ConnectivityResult> result =
+        await Connectivity().checkConnectivity();
+    _updateConnectionStatus(result);
+  }
+
+  void _updateConnectionStatus(List<ConnectivityResult> results) {
+    setState(() {
+      _isConnected = results.any((result) =>
+              result != ConnectivityResult.none &&
+              result !=
+                  ConnectivityResult
+                      .bluetooth // Optional: exclude bluetooth if needed
+          );
+    });
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     DBService().getUid();
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: ConnectivityAlertWidget(
-          onConnectivityResult: (connection) => print(connection),
-          offlineWidget: NoInternet(),
-          onlineWidget: Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        print('Pop invoked with result: $result');
+      },
+      child: _isConnected
+          ? Scaffold(
               key: BottomNavigation.scaffoldKey,
               body: BottomNavigation.currentScreen,
               bottomNavigationBar: BottomNavigationBar(
@@ -94,7 +123,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     icon: Icon(Icons.person),
                   ),
                 ],
-              )),
-        ));
+              ),
+            )
+          : NoInternet(),
+    );
   }
 }

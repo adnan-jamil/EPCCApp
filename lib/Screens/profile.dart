@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> {
 
     setState(() {
       _image = image!;
-      filename = (image != null ? basename(image.path) : null)!;
+      filename = (image.path.isNotEmpty ? basename(image.path) : null)!;
     });
   }
 

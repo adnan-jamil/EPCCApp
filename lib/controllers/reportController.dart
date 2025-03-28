@@ -1,9 +1,5 @@
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/data_modal.dart';
-import 'package:epcc/Models/reportmodel.dart';
-import 'package:epcc/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -180,7 +176,7 @@ class ReportController extends GetxController {
       novsum = 0;
       decsum = 0;
     }
-    //TODO reports All  Value
+    //todo reports All  Value
     else if (YearValue != "Year" &&
         MonthValue != "Month" &&
         TPDropValue != "TP/PP" &&
@@ -223,7 +219,7 @@ class ReportController extends GetxController {
         _showSnak("Data not Found");
       }
     }
-    // TODO reports per year
+    // todo reports per year
     else if (YearValue != "Year" &&
         MonthValue == "Month" &&
         TPDropValue != "TP/PP" &&

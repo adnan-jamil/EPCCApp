@@ -7,7 +7,6 @@ import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/controllers/profileController.dart';
-import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  RefreshController _refreshController =
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   final _unitController = Get.find<UnitsController>();
 
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
   final _profileController = Get.find<ProfileController>();
   Future<void> _refresh() async {
     await Future.delayed(Duration(milliseconds: 900));
@@ -40,7 +40,6 @@ class HomeScreen extends GetView<HomeController> {
     });
   }
 
-  ReportController _reportController = Get.put(ReportController());
   @override
   Widget build(BuildContext context) {
     update();
@@ -546,7 +545,7 @@ class HomeScreen extends GetView<HomeController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
           width: double.infinity,
-          height: 80,
+          height: 85,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

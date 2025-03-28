@@ -16,7 +16,7 @@ class Reports extends StatefulWidget {
 
 class _ReportsState extends State<Reports> {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  final _controller = Get.put(() => ReportController());
+  // final _controller = Get.put(() => ReportController());
 
   final controller = Get.find<ReportController>();
   void getData() async {
@@ -200,7 +200,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        // TODO Drop 1
+                                        // todo Drop 1
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -257,7 +257,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
-                                        // TODO Drop 2
+                                        // todo drop 2
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -313,7 +313,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        // TODO Drop 3
+                                        // todo Drop 3
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -388,7 +388,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        // TODO Drop 4
+                                        // todo Drop 4
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -443,7 +443,7 @@ class _ReportsState extends State<Reports> {
                                             border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
-                                        // TODO Drop 5
+                                        // todo Drop 5
                                         child: DropdownButton<String>(
                                           menuMaxHeight:
                                               MediaQuery.of(context).size.width,
@@ -564,7 +564,7 @@ class _ReportsState extends State<Reports> {
                                         ),
                                       ),
 
-                                      // TODO list initailize
+                                      // todo list initailize
                                       Expanded(
                                         flex: 6,
                                         child: Container(

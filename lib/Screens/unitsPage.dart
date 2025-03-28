@@ -16,7 +16,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnitsPage extends GetView<UnitsController> {
   final _subController = Get.find<SubUnitsController>();
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
   final _profileController = Get.find<ProfileController>();
 
   @override
@@ -784,7 +785,7 @@ class UnitsPage extends GetView<UnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 70,
+          height: 80,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

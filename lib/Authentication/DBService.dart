@@ -27,7 +27,7 @@ class DBService {
   }
 
   uploadImage(File image, String uid) async {
-    if (image != null) {
+    if (image.path.isNotEmpty) {
       Reference storageReference = FirebaseStorage.instance.ref().child("$uid");
       final UploadTask uploadTask = storageReference.putFile(image);
       final TaskSnapshot downloadUrl = (await uploadTask);

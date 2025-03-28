@@ -1,7 +1,6 @@
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -107,7 +106,7 @@ class UnitsController extends GetxController {
             unitOneDetails[i].consumptionDate!.substring(3, 6).toUpperCase();
         var year =
             unitOneDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
-        var _date = "$day-$month-$year";
+        // var _date = "$day-$month-$year";
 
         if (month == _month && day == _day && year == _year) {
           c++;
@@ -131,7 +130,7 @@ class UnitsController extends GetxController {
             unitTwoDetails[i].consumptionDate!.substring(3, 6).toUpperCase();
         var year =
             unitTwoDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
-        var _date = "$day-$month-$year";
+        // var _date = "$day-$month-$year";
 
         if (month == _month && day == _day && year == _year) {
           // print("{$date}  $_date");

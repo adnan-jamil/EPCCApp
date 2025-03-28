@@ -7,7 +7,6 @@ import 'package:epcc/controllers/loginController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -104,6 +103,7 @@ class LoginScreen extends GetView<LoginController> {
                                       if (!GetUtils.isEmail(val!)) {
                                         return "Provide Correct Email...";
                                       }
+                                      return null;
                                     },
                                     controller: controller.emailController,
                                     style: TextStyle(
@@ -153,6 +153,7 @@ class LoginScreen extends GetView<LoginController> {
                                       if (val!.length < 6) {
                                         return "Provide Correct Password...";
                                       }
+                                      return null;
                                     },
                                     controller: controller.passController,
                                     style: TextStyle(

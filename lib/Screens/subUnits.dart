@@ -16,7 +16,8 @@ import 'package:intl/intl.dart';
 
 class SubUnits extends GetView<SubUnitsController> {
   final _controller = Get.find<BackProcessController>();
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
   final _profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
@@ -522,7 +523,7 @@ class SubUnits extends GetView<SubUnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 70,
+          height: 90,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

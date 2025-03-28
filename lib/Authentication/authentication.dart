@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/login_screen.dart';
 import 'package:epcc/Screens/noInternet.dart';
-import 'package:epcc/controllers/HomeController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,16 +26,21 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   bool _connectionStatus = false;
   final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
   late bool loginValue;
   late SharedPreferences _pref;
+
   @override
   void initState() {
     getLoginValue();
     super.initState();
     initConnectivity();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged
+        .listen((List<ConnectivityResult> results) {
+      // Take the first result or handle multiple results as needed
+      _updateConnectionStatus(
+          results.isNotEmpty ? results.first : ConnectivityResult.none);
+    });
   }
 
   getLoginValue() async {
@@ -50,30 +54,29 @@ class _AuthenticateState extends State<Authenticate> {
     super.dispose();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
-    ConnectivityResult result = ConnectivityResult.none;
-    // Platform messages may fail, so we use a try/catch PlatformException.
+    List<ConnectivityResult> results = [ConnectivityResult.none];
     try {
-      result = await _connectivity.checkConnectivity();
+      results = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
       print(e.toString());
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) {
-      return Future.value(null);
+      return;
     }
 
-    return _updateConnectionStatus(result);
+    return _updateConnectionStatus(
+        results.isNotEmpty ? results.first : ConnectivityResult.none);
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     switch (result) {
       case ConnectivityResult.wifi:
       case ConnectivityResult.mobile:
+      case ConnectivityResult.ethernet:
+      case ConnectivityResult.vpn:
+      case ConnectivityResult.bluetooth:
         setState(() => _connectionStatus = true);
         break;
       case ConnectivityResult.none:

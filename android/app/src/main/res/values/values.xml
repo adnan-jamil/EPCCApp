@@ -1,0 +1,8 @@
+<resources>
+    <string name="firebase_database_url" translatable="false">
+        https://epcc-38d4a-default-rtdb.firebaseio.com</string>
+    <string name="project_id" translatable="false">epcc-38d4a</string>
+    <string name="google_app_id" translatable="false">1:460874215224:ios:4bb7f82972efe84de69bcd</string>
+    <string name="google_api_key" translatable="false">AIzaSyB-zhtkpIzII8UOsIjc1GEHbv-u1wraPh8</string>
+</resources>
+ 
