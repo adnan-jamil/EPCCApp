@@ -9,7 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends GetView<LoginController> {
+class LoginScreen extends StatelessWidget {
+  final LoginController controller = Get.put(LoginController());
   // @override
   // void dispose() {
   //   _emailController.dispose();
@@ -238,6 +239,11 @@ class LoginScreen extends GetView<LoginController> {
                                               Get.off(() => BottomNavigation(),
                                                   fullscreenDialog: true,
                                                   binding: HomePageBindings());
+
+                                              // Clear controllers after successful login
+                                              controller.emailController
+                                                  .clear();
+                                              controller.passController.clear();
 
                                               controller.cbRemember
                                                   ? LoginController().setLogin(
