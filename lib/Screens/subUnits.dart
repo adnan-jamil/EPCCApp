@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -515,7 +517,6 @@ class SubUnits extends GetView<SubUnitsController> {
   getTiles(Color color, String val, textImage, VoidCallback onTap,
       List<double> list) {
     print(val);
-
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -524,7 +525,8 @@ class SubUnits extends GetView<SubUnitsController> {
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
           height: 90,
-          color: color,
+          color: Color.fromRGBO(
+              color.r.toInt(), color.g.toInt(), color.b.toInt(), 0.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

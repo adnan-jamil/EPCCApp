@@ -10,7 +10,7 @@ Future<void> writeDataToFile(String filename, String data) async {
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/$filename.json');
   await file.writeAsString(data);
-  log("Data saved to file: ${file.path}");
+  // log("Data saved to file: ${file.path}");
 }
 
 // Function to read data from a file
@@ -20,7 +20,7 @@ Future<String?> readDataFromFile(String filename) async {
     final file = File('${directory.path}/$filename.json');
     if (await file.exists()) {
       String fileData = await file.readAsString();
-      log("Data retrieved from file: $fileData");
+      // log("Data retrieved from file: $fileData");
       return fileData;
     } else {
       log("File not found");
@@ -38,9 +38,9 @@ Future<void> clearCacheFile(String filename) async {
   final file = File('${directory.path}/$filename.json');
   if (await file.exists()) {
     await file.delete();
-    log("Cache file deleted");
+    // log("Cache file deleted");
   } else {
-    log("Cache file not found");
+    // log("Cache file not found");
   }
 }
 
@@ -51,12 +51,12 @@ class ApiService extends GetConnect {
   // Fetch details with file-based caching
   Future<List<dynamic>> fetchDetails() async {
     try {
-      log("Fetch details function calling...");
+      // log("Fetch details function calling...");
 
       // Check if cache exists in the file
       String? cachedData = await readDataFromFile(cacheFileName);
       if (cachedData == null) {
-        log("Cache not found, making network request to $apiUrl");
+        // log("Cache not found, making network request to $apiUrl");
 
         // Make network request
         var response = await get(apiUrl);
@@ -88,18 +88,18 @@ class ApiService extends GetConnect {
   // Function to fetch and update cache
   void getResponse() async {
     try {
-      log("Making network request to $apiUrl...");
+      // log("Making network request to $apiUrl...");
       var response = await get(apiUrl);
       if (response.statusCode == 200) {
         var body = jsonEncode(response.body);
-        log("Received data successfully");
+        // log("Received data successfully");
 
         // Clear the existing cache
-        log("Clearing existing cache...");
+        // log("Clearing existing cache...");
         await clearCacheFile(cacheFileName);
 
         // Save new data to cache file
-        log("Saving new data to file...");
+        // log("Saving new data to file...");
         await writeDataToFile(cacheFileName, body);
       } else {
         log("Unexpected status code: ${response.statusCode}");
