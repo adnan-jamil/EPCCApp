@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -92,6 +91,7 @@ class ApiService extends GetConnect {
       var response = await get(apiUrl);
       if (response.statusCode == 200) {
         var body = jsonEncode(response.body);
+        log("Received data successfully: ${response.body}");
         // log("Received data successfully");
 
         // Clear the existing cache

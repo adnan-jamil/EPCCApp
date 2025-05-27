@@ -375,7 +375,6 @@ class ReportController extends GetxController {
 
       //   }
       // }
-
     } else if (YearValue == "Year" &&
         MonthValue != "Month" &&
         TPDropValue == "TP/PP" &&
@@ -557,18 +556,8 @@ class ReportController extends GetxController {
 
   List<String> _bpDropList1 = [
     "Year",
-    "2021",
-    "2020",
-    "2019",
-    "2018",
-    "2017",
-    "2016",
-    "2015",
-    "2014",
-    "2013",
-    "2012",
-    "2011",
-    "2010"
+    ...List.generate(DateTime.now().year - 2001,
+        (index) => (DateTime.now().year - index).toString())
   ].obs;
 
   List<String> _bpDropList2 = [
