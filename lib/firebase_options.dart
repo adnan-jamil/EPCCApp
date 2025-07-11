@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBSKq8EE9I1YoPx7d6Bn05R5FTGDJxhAYU',
-    appId: '1:460874215224:android:2e95cd95b29aba2ee69bcd',
+    appId: '1:460874215224:android:b10cb0e466f73965e69bcd',
     messagingSenderId: '460874215224',
     projectId: 'epcc-38d4a',
     databaseURL: 'https://epcc-38d4a-default-rtdb.firebaseio.com',
@@ -57,12 +57,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB-zhtkpIzII8UOsIjc1GEHbv-u1wraPh8',
-    appId: '1:460874215224:ios:110ebcb953ee3836e69bcd',
+    appId: '1:460874215224:ios:d31200710a7e1a40e69bcd',
     messagingSenderId: '460874215224',
     projectId: 'epcc-38d4a',
     databaseURL: 'https://epcc-38d4a-default-rtdb.firebaseio.com',
     storageBucket: 'epcc-38d4a.appspot.com',
-    iosBundleId: 'com.virtuenetz.epcc',
+    iosBundleId: 'com.ifl.epcc',
   );
 
   static const FirebaseOptions web = FirebaseOptions(

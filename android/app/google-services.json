@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:460874215224:android:62ca8db4bb1da988e69bcd",
+        "mobilesdk_app_id": "1:460874215224:android:b10cb0e466f73965e69bcd",
         "android_client_info": {
-          "package_name": "com.example.epcc"
+          "package_name": "com.ifl.epcc"
         }
       },
       "oauth_client": [],

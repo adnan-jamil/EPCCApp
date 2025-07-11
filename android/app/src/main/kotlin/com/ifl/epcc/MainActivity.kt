@@ -1,4 +1,4 @@
-package com.virtuenetz.epcc
+package com.ifl.epcc
 
 import io.flutter.embedding.android.FlutterActivity
 
