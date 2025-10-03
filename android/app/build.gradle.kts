@@ -15,8 +15,9 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
     namespace = "com.ifl.epcc"
-    compileSdk = 35
-     compileOptions {
+    compileSdk = 36
+
+    compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -32,9 +33,9 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.ifl.epcc"
-        minSdk = 23
-        targetSdk = 35
-        compileSdk = 35
+        minSdk = flutter.minSdkVersion
+        targetSdk = 36
+        compileSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
