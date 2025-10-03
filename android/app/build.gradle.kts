@@ -14,7 +14,7 @@ val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
-    namespace = "com.ifl.epcc"
+    namespace = "com.virtuenetz.epcc"
     compileSdk = 36
 
     compileOptions {
@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.ifl.epcc"
+        applicationId = "com.virtuenetz.epcc"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         compileSdk = 36
