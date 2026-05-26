@@ -16,4 +16,11 @@ const dbTextColor = Color(0xff4796f6);
 
 class Constant {
   static String ADMINMAIL = "admin@igcpk.com";
+
+  static const String apiBaseUrl =
+      "https://iflconnect.igcpk.com/y5enmc069k1lus3hio7drwpx4zvgatfb";
+  static const String apiKey =
+      "dir5JUgImQL4ce7nj2G83NaBXEvpCbOtADHTksWZ0l1qfVwY";
+  static const String powerEndpoint = "$apiBaseUrl/power/iflpowapi.php";
+  static const Map<String, String> apiHeaders = {"X-API-Key": apiKey};
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:epcc/Models/constants.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -44,7 +45,6 @@ Future<void> clearCacheFile(String filename) async {
 }
 
 class ApiService extends GetConnect {
-  final apiUrl = "https://epcc.ap.ngrok.io/power/iflpowapi.php";
   final cacheFileName = "API_EPCC_Cache";
 
   // Fetch details with file-based caching
@@ -55,10 +55,9 @@ class ApiService extends GetConnect {
       // Check if cache exists in the file
       String? cachedData = await readDataFromFile(cacheFileName);
       if (cachedData == null) {
-        // log("Cache not found, making network request to $apiUrl");
-
         // Make network request
-        var response = await get(apiUrl);
+        var response =
+            await get(Constant.powerEndpoint, headers: Constant.apiHeaders);
         if (response.status.hasError) {
           log("Error fetching data: ${response.statusText}");
           return Future.error(response.statusText!);
@@ -87,8 +86,8 @@ class ApiService extends GetConnect {
   // Function to fetch and update cache
   void getResponse() async {
     try {
-      // log("Making network request to $apiUrl...");
-      var response = await get(apiUrl);
+      var response =
+          await get(Constant.powerEndpoint, headers: Constant.apiHeaders);
       if (response.statusCode == 200) {
         var body = jsonEncode(response.body);
         log("Received data successfully: ${response.body}");

@@ -858,9 +858,6 @@ class UnitsPage extends GetView<UnitsController> {
                                     color: Colors.white, fontSize: 16)),
                           ],
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
                       ],
                     ),
                   ),

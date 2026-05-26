@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -612,18 +614,13 @@ class HomeScreen extends GetView<HomeController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                                "Min: ${list.reduce((value, element) => value > element ? value : element)}",
+                            Text("Min: ${list.reduce(min)}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16)),
-                            Text(
-                                "Max:  ${list.reduce((value, element) => value > element ? value : element)}",
+                            Text("Max:  ${list.reduce(max)}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16)),
                           ],
-                        ),
-                        SizedBox(
-                          height: 5,
                         ),
                       ],
                     ),
