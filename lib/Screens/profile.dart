@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Constant;
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Authentication/authentication.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
