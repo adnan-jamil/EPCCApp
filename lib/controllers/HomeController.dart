@@ -464,8 +464,6 @@ class HomeController extends GetxController
               setTP1List(double.parse(_data.cONSUMPTIONVALUE!));
               setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
               setTP1(_data);
-            } else {
-              print("helo");
             }
           } else if (data[1][i]["0"] == "TP2") {
             Data _data = Data.fromJson(data[1][i]);

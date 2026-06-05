@@ -166,7 +166,6 @@ class UnitsController extends GetxController {
           var _date = "$day-$month-$year";
           if (_date == date) {
             b++;
-            print("{$date}  $_date");
             _chartThree.clear();
             setChartThree(ChartData1(
                 x: unitThreeDetails[i].consumptionDate!,
@@ -186,10 +185,8 @@ class UnitsController extends GetxController {
               unitFourDetails[i].consumptionDate!.substring(3, 6).toUpperCase();
           var year =
               unitFourDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
-          var _date = "$day-$month-$year";
 
           if (month == _month && day == _day && year == _year) {
-            print("{$date}  $_date");
             d++;
             _chartFour.clear();
             setChartFour(ChartData1(

@@ -159,7 +159,7 @@ class _AddUserState extends State<AddUser> {
                             }
                           } on FirebaseAuthException catch (e) {
                             controller.setLoading(false);
-                            print(e.code);
+                            debugPrint('${e.code}');
                             if (e.code == 'email-already-in-use') {
                               Get.rawSnackbar(
                                   backgroundColor: epccBlue500,

@@ -738,7 +738,6 @@ class UnitsPage extends GetView<UnitsController> {
                                     "assets/images/unit2.png", () {
                                   _subController
                                       .setUnitDetials(controller.unitFour);
-                                  print(controller.centerName.length);
                                   controller.centerName.length == 7
                                       ? _subController.setButtonIndex(1)
                                       : _subController.setButtonIndex(2);

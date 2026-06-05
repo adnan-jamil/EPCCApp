@@ -406,7 +406,6 @@ class _ReportsState extends State<Reports> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            print('pahle');
 
                                             controller.setBPDropValue1(val);
                                             getData();

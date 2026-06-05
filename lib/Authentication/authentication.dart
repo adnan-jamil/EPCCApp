@@ -15,7 +15,7 @@ class Authenticate extends StatefulWidget {
     try {
       await auth.signOut();
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 
@@ -59,7 +59,7 @@ class _AuthenticateState extends State<Authenticate> {
     try {
       results = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
 
     if (!mounted) {

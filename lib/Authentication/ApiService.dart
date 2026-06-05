@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:epcc/Models/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -23,11 +23,10 @@ Future<String?> readDataFromFile(String filename) async {
       // log("Data retrieved from file: $fileData");
       return fileData;
     } else {
-      log("File not found");
       return null;
     }
   } catch (e) {
-    log("Error reading file: $e");
+    debugPrint("Error reading file: $e");
     return null;
   }
 }
@@ -59,11 +58,9 @@ class ApiService extends GetConnect {
         var response =
             await get(Constant.powerEndpoint, headers: Constant.apiHeaders);
         if (response.status.hasError) {
-          log("Error fetching data: ${response.statusText}");
           return Future.error(response.statusText!);
         } else {
           var body = jsonEncode(response.body);
-          log("Network request successful, saving data to file");
 
           // Save API response to a file for caching
           await writeDataToFile(cacheFileName, body);
@@ -72,13 +69,12 @@ class ApiService extends GetConnect {
           return [response.body["status"], response.body["data"]];
         }
       } else {
-        log("Cache found, using cached data...");
         // Use cached data
         var response = jsonDecode(cachedData);
         return [response['status'], response['data']];
       }
     } catch (e) {
-      log("An error occurred: $e");
+      debugPrint("An error occurred: $e");
       return [];
     }
   }
@@ -90,21 +86,11 @@ class ApiService extends GetConnect {
           await get(Constant.powerEndpoint, headers: Constant.apiHeaders);
       if (response.statusCode == 200) {
         var body = jsonEncode(response.body);
-        log("Received data successfully: ${response.body}");
-        // log("Received data successfully");
-
-        // Clear the existing cache
-        // log("Clearing existing cache...");
         await clearCacheFile(cacheFileName);
-
-        // Save new data to cache file
-        // log("Saving new data to file...");
         await writeDataToFile(cacheFileName, body);
-      } else {
-        log("Unexpected status code: ${response.statusCode}");
       }
     } catch (e) {
-      log("An error occurred while fetching data: $e");
+      debugPrint("An error occurred while fetching data: $e");
     }
   }
 }

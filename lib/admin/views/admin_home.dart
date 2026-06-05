@@ -172,7 +172,7 @@ class AdminHome extends StatelessWidget {
                         duration: Duration(seconds: 2));
                   });
                 } on FirebaseException catch (e) {
-                  print(e);
+                  debugPrint('$e');
                 }
               },
             ),

@@ -24,7 +24,6 @@ class LoginScreen extends StatelessWidget {
 
     return GestureDetector(
         onTap: () {
-          print("hello");
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: GetBuilder(
@@ -290,7 +289,7 @@ class LoginScreen extends StatelessWidget {
                                                       Duration(seconds: 3));
                                             }
                                           }).onError((error, stackTrace) {
-                                            print(error.toString());
+                                            debugPrint(error.toString());
                                           });
                                         }
                                         // });

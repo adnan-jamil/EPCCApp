@@ -534,7 +534,6 @@ class ReportController extends GetxController {
   }
 
   setUnitDropValue(String? val) {
-    print(val);
     _unitdropdown.value = val!;
   }
 
@@ -551,7 +550,6 @@ class ReportController extends GetxController {
     setUnitDropValue(val[0]);
 
     _UnitDropList.assignAll(val);
-    print(_UnitDropList);
   }
 
   List<String> _bpDropList1 = [

@@ -282,7 +282,7 @@ class _ProfileState extends State<Profile> {
                                             Text("Add User"),
                                             ElevatedButton(
                                               onPressed: () {
-                                                Get.to(AddUser(),
+                                                Get.to(() => AddUser(),
                                                     binding: loginBinding(),
                                                     fullscreenDialog: true);
                                               },
@@ -325,7 +325,7 @@ class _ProfileState extends State<Profile> {
                                             Text("View Users"),
                                             ElevatedButton(
                                               onPressed: () {
-                                                Get.to(AdminHome(),
+                                                Get.to(() => AdminHome(),
                                                     binding: loginBinding(),
                                                     fullscreenDialog: true);
                                               },

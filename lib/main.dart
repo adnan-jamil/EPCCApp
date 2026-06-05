@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:epcc/Authentication/ApiService.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
@@ -11,7 +10,6 @@ import 'package:get/get.dart';
 Future main() async {
   ApiService().getResponse();
   WidgetsFlutterBinding.ensureInitialized();
-  log('current plateform is ${DefaultFirebaseOptions.currentPlatform}');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

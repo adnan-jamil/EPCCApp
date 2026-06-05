@@ -84,7 +84,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        print('Pop invoked with result: $result');
       },
       child: _isConnected
           ? Scaffold(

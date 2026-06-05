@@ -488,7 +488,6 @@ class SubUnits extends GetView<SubUnitsController> {
                   controller.button == 2
                       ? getTiles(controller.colors[1], controller.buttonText[1],
                           "assets/images/sw.png", () {
-                          print("called");
 
                           _controller.SetTitle(
                               "${controller.title}> ${controller.buttonText[1]} ");
@@ -514,7 +513,6 @@ class SubUnits extends GetView<SubUnitsController> {
 
   getTiles(Color color, String val, textImage, VoidCallback onTap,
       List<double> list) {
-    print(val);
     return GestureDetector(
       onTap: onTap,
       child: Padding(

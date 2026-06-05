@@ -36,7 +36,6 @@ class HomeScreen extends GetView<HomeController> {
     Future.delayed(Duration(seconds: 5), () {
       if (controller.response.value) {
         ApiService().getResponse();
-        print("helllllllo");
         controller.setResponse(false);
       }
     });
