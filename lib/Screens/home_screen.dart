@@ -205,7 +205,7 @@ class HomeScreen extends GetView<HomeController> {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 5,
+                              flex: 4,
                               child: Container(
                                 child: SfCircularChart(
                                   annotations: <CircularChartAnnotation>[
